@@ -59,10 +59,19 @@ const zooAnimals = [
   Use animalNames to populate and return the displayNames array with only the animal name and scientific name of each animal. 
   displayNames will be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
   */
-
-    function animalNames(){
-    /*Your Code Here*/
-  }
+//  var numbers = [65, 44, 12, 4];
+//  zooAnimals.forEach(animalNames)
+ 
+//  function myFunction(item, index, arr) {
+//    arr[index] = item * 10;
+//  }
+let displayName = [];   
+function animalNames(animal){
+  displayName += [`Common Name: ${animal.animal_name}, Scientific Name: ${animal.scientific_name} \n`];
+  return displayName;
+}
+  zooAnimals.forEach(animalNames);
+  console.log(displayName);
   
 
   /* 🦁🦁🦁 Request 2: .map() 🦁🦁🦁
@@ -80,11 +89,15 @@ const zooAnimals = [
   The zoo is concerned about animals with a lower population count. 
   Using lowPopulationAnimals use .filter() to create a new array of objects which contains only the animals with a population of less than 5.
   */
-
-  function lowPopulationAnimals(/*Your Code Here*/){
+  function lowPopulationAnimals(){
     /*Your Code Here*/
   }
+
   
+  const lowPopulationsAnimals = zooAnimals.filter(function(animalPopulation) {
+    return animalPopulation.population < 5;
+  }); 
+console.log (lowPopulationsAnimals);
 
   /* 🦁🦁🦁 Request 4: .reduce() 🦁🦁🦁
   The zoo needs to know their total animal population across the United States. 
@@ -131,9 +144,9 @@ function greeting(a, b){
   
   // 🦁🦁🦁 Step 3: Check your work by un-commenting the following calls to consume(): 🦁🦁🦁 
   // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-  // console.log(consume(2, 2, add)); // 4
-  // console.log(consume(10, 16, multiply)); // 160
-  // console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
+  console.log(consume(2, 2, add)); // 4
+  console.log(consume(10, 16, multiply)); // 160
+  console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
   
   
 // 🦁💪 Stretch: If you haven't already, convert your array method callbacks into arrow functions - make sure you comment out this section before you submit your work 🦁💪
