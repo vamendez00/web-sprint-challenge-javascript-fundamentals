@@ -16,7 +16,7 @@ function myFunction() {
 myFunction();
 
 //🚀🚀🚀 ⬇️ 📝 Explanation ⬇️ 📝 🚀🚀🚀: 
-
+// nestedFunction has access to the variable "const internal", because they are both within the same scope.  They are both found within the same parent function, myFunction(.)
 
 
 
@@ -28,11 +28,14 @@ myFunction();
     
 For example, `summation(4)` should return 10 because 1+2+3+4 is 10. Note, you may use a for loop for this function if you wish */
 
-function summation(/*Your Code Here*/) {
-  /*Your Code Here*/
-
+function summation(num) {
+  let sum=0;
+  
+  for (let i=0; i <= num; i++) {
+    sum = sum + i;
   }
- 
+  return sum;
+}
 
 // 🦁🦁🦁 Topic 2: ADVANCED Array Methods 🦁🦁🦁
 // Given this zoo data from around the United States, follow the instructions below. Use the specific array methods in the requests below to solve the problems.
@@ -56,10 +59,16 @@ const zooAnimals = [
   displayNames will be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
   */
 
-  function animalNames(/*Your Code Here*/){
-    /*Your Code Here*/
+ let displayName = [];
+
+ function animalNames(animal, index){
+    displayName[index] = `name: ${animal.animal_name}, scientific name: ${animal.scientific_name}` ;
   }
-  
+  zooAnimals.forEach(animalNames);
+  console.log(displayName);
+
+  //ABOVE RETURNS: an array of strings following requested format. Should pass?
+  // ["name: Jackal, asiatic, scientific name: Canis aureus", "name: Screamer, southern, scientific name: Chauna torquata", "name: White spoonbill, scientific name: Platalea leucordia", "name: White-cheeked pintail, scientific name: Anas bahamensis", "name: Black-backed jackal, scientific name: Canis mesomelas", "name: Brolga crane, scientific name: Grus rubicundus", "name: Common melba finch, scientific name: Pytilia melba", "name: Pampa gray fox, scientific name: Pseudalopex gymnocercus", "name: Hawk-eagle, crowned, scientific name: Spizaetus coronatus", "name: Australian pelican, scientific name: Pelecanus conspicillatus"]
 
   /* 🦁🦁🦁 Request 2: .map() 🦁🦁🦁
   The zoo needs a list of all their animal's names converted to lower case. 
@@ -67,19 +76,40 @@ const zooAnimals = [
   For example: ['jackal, asiatic', .....]
   */
 
-  function lowerCaseNames(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowerCaseNames(animal){
+    return animal.animal_name.toLowerCase();
   }
   
-  
+  let lcName = zooAnimals.map(lowerCaseNames);
+  console.log (lcName);
+
+//ABOVE CODE RETURNS REQUESTED DATA IN REQUESTED FORMAT - ARRAY OF STRINGS.
+
+//ALTERNATIVE .map also returns info as requested.
+  // const lowerCaseNames = zooAnimals.map(function(animal){
+  //   return animal.animal_name.toLowerCase();
+  // });
+  // console.log(lowerCaseNames);
+
+
   /* 🦁🦁🦁 Request 3: .filter() 🦁🦁🦁
   The zoo is concerned about animals with a lower population count. 
   Using lowPopulationAnimals use .filter() to create a new array of objects which contains only the animals with a population of less than 5.
   */
 
-  function lowPopulationAnimals(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowPopulationAnimals(animals){
+    // return animals.population < 5;
   }
+  // let lowPop= zooAnimals.filter(lowPopulationAnimals);
+  // console.log (lowPopulationsAnimals);
+  
+//ABOVE CODE RETURNS REQUESTED DATA IN REQUESTED FORMAT - ARRAY OF STRINGS.
+
+//ALTERNATIVE .map also returns info as requested.
+//   const lowPopulationsAnimals = zooAnimals.filter(function(animalPopulation) {
+//     return animalPopulation.population < 5;
+//   }); 
+// console.log (lowPopulationsAnimals);
   
 
   /* 🦁🦁🦁 Request 4: .reduce() 🦁🦁🦁
@@ -91,7 +121,11 @@ const zooAnimals = [
   function USApop(/*Your Code Here*/){
     /*Your Code Here*/
   }
-  
+  //THIS DOES WHAT HAS BEEN ASKED FOR
+  // const totalUSAPopulation = zooAnimals.reduce(function(accumulator, zooPop){
+  //   return accumulator + zooPop.population;
+  // },0);
+  // console.log (totalUSAPopulation);
   
   // 🦁🦁🦁 Callbacks 🦁🦁🦁  
   /* 🦁🦁🦁 Step 1: Create a higher-order function 🦁🦁🦁
@@ -101,35 +135,35 @@ const zooAnimals = [
     * The consume function should return the invocation of cb, passing a and b into cb as arguments
   */
 
-  function consume(/*Your Code Here */){
-    /*Your Code Here */
+  function consume(a,b,cb){
+    return cb(a, b);
   }
  
   
   /* 🦁🦁🦁 Step 2: Create several functions to callback with consume(); 🦁🦁🦁 */
  // 🦁🦁🦁 Use add to return the sum of two numbers 🦁🦁🦁
   
-function add(/*Your Code Here */){
-    /*Your Code Here*/
+function add(a, b){
+    return a + b;
   }
 
 // 🦁🦁🦁 Use multiply to return the product of two numbers 🦁🦁🦁
   
-function multiply(/*Your Code Here */){
-   /*Your Code Here */
+function multiply(a, b){
+   return a * b;
   }
 
  // 🦁🦁🦁 Use greeting to accept a first and last name and return "Hello {first-name} {last-name}, nice to meet you!" 🦁🦁🦁
   
-function greeting(/*Your Code Here */){
-   return /*Your Code Here */
+function greeting(a, b){
+  return `Hello ${a} ${b}, nice to meet you!`;
   }
   
   // 🦁🦁🦁 Step 3: Check your work by un-commenting the following calls to consume(): 🦁🦁🦁 
   // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-  // console.log(consume(2, 2, add)); // 4
-  // console.log(consume(10, 16, multiply)); // 160
-  // console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
+  console.log(consume(2, 2, add)); // 4
+  console.log(consume(10, 16, multiply)); // 160
+  console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
   
   
 // 🦁💪 Stretch: If you haven't already, convert your array method callbacks into arrow functions - make sure you comment out this section before you submit your work 🦁💪
@@ -143,10 +177,24 @@ function greeting(/*Your Code Here */){
 /* 🐴🐴🐴 Step 1: Base Constructor 🐴🐴🐴
  Use the constructor function named CuboidMaker to accept properties for length, width, and height which can be initialized as an object
 */
-function CuboidMaker(/*Your Code Here */){
-  /*Your Code Here */
+function CuboidMaker(length, width, height){
+  this.length = length;
+  this.width = width;
+  this.height = height;
 }
 
+CuboidMaker.prototype.volume = function() {
+  return this.length * this.height * this.width; 
+}
+
+CuboidMaker.prototype.surfaceArea = function(){
+  return 2 * (this.length * this.width + this.length * this.height + this.width * this.height); 
+}
+const cuboid = new CuboidMaker(4, 5, 5);
+
+console.log(cuboid.volume());
+
+console.log(cuboid.surfaceArea()); // 130
 
 /* 🐴🐴🐴 Step 2: Volume Method 🐴🐴🐴
   Create a method called volume using CuboidMaker's prototype that returns the volume of a given cuboid's length, width, and height
