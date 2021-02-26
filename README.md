@@ -10,6 +10,8 @@ You are not allowed to collaborate during the sprint challenge.
 
 _You have **three hours** to complete this challenge. Plan your time accordingly._
 
+Arbitrary change for submission.
+
 
 ## Introduction
 
