@@ -59,16 +59,17 @@ const zooAnimals = [
   displayNames will be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
   */
 
- let displayName = [];
+function animalNames(array){
+  var displayNames = [];
 
- function animalNames(animal, index){
-    displayName[index] = `name: ${animal.animal_name}, scientific name: ${animal.scientific_name}` ;
-  }
-  zooAnimals.forEach(animalNames);
-  console.log(displayName);
+  array.forEach(function(animal, index){
+    displayNames.push (`name: ${animal.animal_name}, scientific: ${animal.scientific_name}`);
+    // return displayNames;
+  }, 0)
+return displayNames;
+}
+  animalNames(zooAnimals);
 
-  //ABOVE RETURNS: an array of strings following requested format. Should pass?
-  // ["name: Jackal, asiatic, scientific name: Canis aureus", "name: Screamer, southern, scientific name: Chauna torquata", "name: White spoonbill, scientific name: Platalea leucordia", "name: White-cheeked pintail, scientific name: Anas bahamensis", "name: Black-backed jackal, scientific name: Canis mesomelas", "name: Brolga crane, scientific name: Grus rubicundus", "name: Common melba finch, scientific name: Pytilia melba", "name: Pampa gray fox, scientific name: Pseudalopex gymnocercus", "name: Hawk-eagle, crowned, scientific name: Spizaetus coronatus", "name: Australian pelican, scientific name: Pelecanus conspicillatus"]
 
   /* 🦁🦁🦁 Request 2: .map() 🦁🦁🦁
   The zoo needs a list of all their animal's names converted to lower case. 
@@ -76,20 +77,15 @@ const zooAnimals = [
   For example: ['jackal, asiatic', .....]
   */
 
-  function lowerCaseNames(animal){
-    return animal.animal_name.toLowerCase();
+  function lowerCaseNames(array){
+    let lcName = array.map(function(animal){
+      return animal.animal_name.toLowerCase();
+    })
+    return lcName;
   }
   
-  let lcName = zooAnimals.map(lowerCaseNames);
-  console.log (lcName);
+lowerCaseNames(zooAnimals);
 
-//ABOVE CODE RETURNS REQUESTED DATA IN REQUESTED FORMAT - ARRAY OF STRINGS.
-
-//ALTERNATIVE .map also returns info as requested.
-  // const lowerCaseNames = zooAnimals.map(function(animal){
-  //   return animal.animal_name.toLowerCase();
-  // });
-  // console.log(lowerCaseNames);
 
 
   /* 🦁🦁🦁 Request 3: .filter() 🦁🦁🦁
@@ -97,35 +93,29 @@ const zooAnimals = [
   Using lowPopulationAnimals use .filter() to create a new array of objects which contains only the animals with a population of less than 5.
   */
 
-  function lowPopulationAnimals(animals){
-    // return animals.population < 5;
+  function lowPopulationAnimals(array){   
+    let lowPop = array.filter(function(animal) {
+      return (animal.population < 5);
+    });
+    return lowPop;
   }
-  // let lowPop= zooAnimals.filter(lowPopulationAnimals);
-  // console.log (lowPopulationsAnimals);
-  
-//ABOVE CODE RETURNS REQUESTED DATA IN REQUESTED FORMAT - ARRAY OF STRINGS.
+  lowPopulationAnimals(zooAnimals);
 
-//ALTERNATIVE .map also returns info as requested.
-//   const lowPopulationsAnimals = zooAnimals.filter(function(animalPopulation) {
-//     return animalPopulation.population < 5;
-//   }); 
-// console.log (lowPopulationsAnimals);
-  
-
+    
   /* 🦁🦁🦁 Request 4: .reduce() 🦁🦁🦁
   The zoo needs to know their total animal population across the United States. 
   Using USApop find the total population from the zoos array using the .reduce() method. 
   Remember the reduce method takes two arguments: a callback (which itself takes two args - the accumulator and the item), and an initial value for the count.
   */
 
-  function USApop(/*Your Code Here*/){
-    /*Your Code Here*/
-  }
-  //THIS DOES WHAT HAS BEEN ASKED FOR
-  // const totalUSAPopulation = zooAnimals.reduce(function(accumulator, zooPop){
-  //   return accumulator + zooPop.population;
-  // },0);
-  // console.log (totalUSAPopulation);
+  function USApop (array){
+  let totalUSAPopulation = array.reduce(function(accumulator, animal){
+    return (accumulator + animal.population);
+  },0);
+  return totalUSAPopulation;
+}
+
+  console.log (USApop(zooAnimals));
   
   // 🦁🦁🦁 Callbacks 🦁🦁🦁  
   /* 🦁🦁🦁 Step 1: Create a higher-order function 🦁🦁🦁
@@ -177,30 +167,21 @@ function greeting(a, b){
 /* 🐴🐴🐴 Step 1: Base Constructor 🐴🐴🐴
  Use the constructor function named CuboidMaker to accept properties for length, width, and height which can be initialized as an object
 */
-function CuboidMaker(length, width, height){
-  this.length = length;
-  this.width = width;
-  this.height = height;
+function CuboidMaker(attributes){
+  this.length = attributes.length;
+  this.width = attributes.width;
+  this.height = attributes.height;
 }
 
-CuboidMaker.prototype.volume = function() {
-  return this.length * this.height * this.width; 
-}
 
-CuboidMaker.prototype.surfaceArea = function(){
-  return 2 * (this.length * this.width + this.length * this.height + this.width * this.height); 
-}
-const cuboid = new CuboidMaker(4, 5, 5);
-
-console.log(cuboid.volume());
-
-console.log(cuboid.surfaceArea()); // 130
 
 /* 🐴🐴🐴 Step 2: Volume Method 🐴🐴🐴
   Create a method called volume using CuboidMaker's prototype that returns the volume of a given cuboid's length, width, and height
   Formula for cuboid volume: length * width * height   */
 
-
+  CuboidMaker.prototype.volume = function() {
+    return this.length * this.height * this.width; 
+  }
 
 
 
@@ -208,7 +189,10 @@ console.log(cuboid.surfaceArea()); // 130
   Create another method called surfaceArea using CuboidMaker's prototype that returns the surface area of a given cuboid's length, width, and height. 
   Formula for cuboid surface area of a cube: 
   2 * (length * width + length * height + width * height)  */
-
+  
+  CuboidMaker.prototype.surfaceArea = function(){
+    return 2 * (this.length * this.width + this.length * this.height + this.width * this.height); 
+  }
 
 
 
@@ -217,22 +201,37 @@ console.log(cuboid.surfaceArea()); // 130
   Create an object called cuboid that uses the new keyword to use our CuboidMaker constructor
   Add properties and values of length: 4, width: 5, and height: 5 to cuboid. */
 
-
+let cuboid = new CuboidMaker({
+  length: 4,
+  width: 5,
+  height: 5
+});
 
 
 
 // 🐴🐴🐴 Test your volume and surfaceArea methods by uncommenting the logs below: 🐴🐴🐴
 // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-// console.log(cuboid.volume()); // 100
-// console.log(cuboid.surfaceArea()); // 130
+console.log(cuboid.volume()); // 100
+console.log(cuboid.surfaceArea()); // 130
  
 
 // 🦄🦄🦄 Topic 4: Classes 🦄🦄🦄 //
 //🦄🦄🦄 1. Take your prototypes from above and refactor into class syntax. Please rename your class CuboidMakerTwo and your object cuboidTwo 🦄🦄🦄
 class CuboidMakerTwo{
+  constructor(attributes){
+    this.length = attributes.length;
+    this.width = attributes.width;
+    this.height = attributes.height;
+  }
 
+  volume() {
+    return this.length * this.height * this.width; 
+  }
+  
+  surfaceArea() {
+    return 2 * (this.length * this.width + this.length * this.height + this.width * this.height); 
+  }
 }
-
 
 //🦄🦄🦄 Test your volume and surfaceArea methods by uncommenting the logs below: 🦄🦄🦄
 // console.log(cuboidTwo.volume()); // 100
